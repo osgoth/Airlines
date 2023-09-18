@@ -1,0 +1,7 @@
+﻿
+
+namespace Main
+{
+    Console.WriteLine();
+}
+
