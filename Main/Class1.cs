@@ -1,7 +1,0 @@
-﻿
-
-namespace Main
-{
-    Console.WriteLine();
-}
-
