@@ -2,13 +2,13 @@ using Domain.Repository;
 using Logic.DataProviders.Interfaces;
 using Logic.Models;
 
-namespace Logic.DataProviders.ConsoleInputSimulation;
+namespace ConsoleApp.DataProviders.ConsoleInputSimulation;
 
-public class FlightsConsoleDataProvider : IFlightsDataProvider
+public class FlightsConsoleMockDataProvider : IFlightsDataProvider
 {
     private readonly IFlightRepository _flightRepository;
 
-    public FlightsConsoleDataProvider(IFlightRepository flightRepository)
+    public FlightsConsoleMockDataProvider(IFlightRepository flightRepository)
     {
         this._flightRepository = flightRepository;
     }

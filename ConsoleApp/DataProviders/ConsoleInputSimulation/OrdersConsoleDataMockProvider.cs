@@ -3,13 +3,13 @@ using Domain.Repository;
 using Logic.DataProviders.Interfaces;
 using Newtonsoft.Json;
 
-namespace Logic.DataProviders.ConsoleInputSimulation;
+namespace ConsoleApp.DataProviders.ConsoleInputSimulation;
 
-public class OrdersConsoleDataProvider : IOrdersDataProvider
+public class OrdersConsoleDataMockProvider : IOrdersDataProvider
 {
     private readonly IOrderRepository _orderRepository;
 
-    public OrdersConsoleDataProvider(IOrderRepository orderRepository)
+    public OrdersConsoleDataMockProvider(IOrderRepository orderRepository)
     {
         this._orderRepository = orderRepository;
     }
@@ -40,7 +40,7 @@ public class OrdersConsoleDataProvider : IOrdersDataProvider
         Console.WriteLine($"order: {orderNumber}, flightNumber: not scheduled");
     }
 
-    public void SendScheduledOrder(Models.Order order)
+    public void SendScheduledOrder(Logic.Models.Order order)
     {
         Console.WriteLine(
             $"order: {order.OrderId}, flightNumber: {order.FlightNumber}, departure: {order.Departure}, arrival: {order.Destination}, day: {order.DayNumber}");

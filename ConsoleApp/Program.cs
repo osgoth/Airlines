@@ -1,7 +1,7 @@
-﻿using Domain.Repository;
+﻿using ConsoleApp.DataProviders.ConsoleInputSimulation;
+using Domain.Repository;
 using Infrastructure;
 using Infrastructure.Repository.InMemoryRepository;
-using Logic.DataProviders.ConsoleInputSimulation;
 using Logic.DataProviders.Interfaces;
 using Logic.Services;
 using Logic.Services.Interfaces;
@@ -16,13 +16,13 @@ public class Program
         var serviceProvider = new ServiceCollection()
             .AddSingleton<IOrderRepository, OrderRepository>()
             .AddSingleton<IFlightRepository, FlightRepository>()
-            .AddSingleton<IAirlinesService, AirlinesService>()
-            .AddSingleton<IFlightsDataProvider, FlightsConsoleDataProvider>()
-            .AddSingleton<IOrdersDataProvider, OrdersConsoleDataProvider>()
+            .AddSingleton<IOrderFlightService, OrderFlightService>()
+            .AddSingleton<IFlightsDataProvider, FlightsConsoleMockDataProvider>()
+            .AddSingleton<IOrdersDataProvider, OrdersConsoleDataMockProvider>()
             .AddDbContext<AirlinesInMemoryContext>()
             .BuildServiceProvider();
 
-        var airlinesService = serviceProvider.GetService<IAirlinesService>();
-        await airlinesService.RunService();
+        var airlinesService = serviceProvider.GetService<IOrderFlightService>();
+        await airlinesService.AssignFlightsToOrders();
     }
 }

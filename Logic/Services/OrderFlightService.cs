@@ -6,14 +6,14 @@ using Order = Logic.Models.Order;
 
 namespace Logic.Services;
 
-public class AirlinesService : IAirlinesService
+public class OrderFlightService : IOrderFlightService
 {
     private readonly IFlightRepository _flightRepository;
     private readonly IOrderRepository _orderRepository;
     private readonly IFlightsDataProvider _flightsDataProvider;
     private readonly IOrdersDataProvider _ordersDataProvider;
 
-    public AirlinesService(IFlightRepository flightRepository, IOrderRepository orderRepository,
+    public OrderFlightService(IFlightRepository flightRepository, IOrderRepository orderRepository,
         IFlightsDataProvider flightsDataProvider, IOrdersDataProvider ordersDataProvider)
     {
         this._orderRepository = orderRepository;
@@ -22,8 +22,9 @@ public class AirlinesService : IAirlinesService
         this._ordersDataProvider = ordersDataProvider;
     }
 
-    public async Task RunService()
+    public async Task AssignFlightsToOrders()
     {
+        // using mock data
         await this._flightsDataProvider.LoadFlights();
         var flights = (await this._flightRepository.GetAllFlightsAsync()).Select(x => new Flight()
         {
@@ -33,6 +34,7 @@ public class AirlinesService : IAirlinesService
 
         _flightsDataProvider.SendFlightsInfo(flights);
 
+        // using mock data
         await this._ordersDataProvider.LoadOrders();
         var orders = (await this._orderRepository.GetAllOrdersAsync()).Select(x => new Order()
             { OrderId = x.OrderId, Destination = x.Destination });

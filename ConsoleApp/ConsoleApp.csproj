@@ -13,4 +13,8 @@
       <ProjectReference Include="..\Logic\Logic.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="DataProviders\" />
+    </ItemGroup>
+
 </Project>
