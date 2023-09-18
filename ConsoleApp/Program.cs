@@ -23,6 +23,6 @@ public class Program
             .BuildServiceProvider();
 
         var airlinesService = serviceProvider.GetService<IOrderFlightService>();
-        await airlinesService.AssignFlightsToOrders();
+        await airlinesService.LoadInventory();
     }
 }

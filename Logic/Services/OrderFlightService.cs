@@ -22,10 +22,17 @@ public class OrderFlightService : IOrderFlightService
         this._ordersDataProvider = ordersDataProvider;
     }
 
-    public async Task AssignFlightsToOrders()
+    public async Task LoadInventory()
+    {
+        var flights = await this.LoadFlights();
+        await this.AssignFlightsToOrders(flights);
+    }
+
+    private async Task<IEnumerable<Flight>> LoadFlights()
     {
         // using mock data
         await this._flightsDataProvider.LoadFlights();
+
         var flights = (await this._flightRepository.GetAllFlightsAsync()).Select(x => new Flight()
         {
             FlightNumber = x.FlightNumber, DayNumber = x.DayNumber, Arrival = x.Arrival, Departure = x.Departure,
@@ -34,6 +41,11 @@ public class OrderFlightService : IOrderFlightService
 
         _flightsDataProvider.SendFlightsInfo(flights);
 
+        return flights;
+    }
+
+    private async Task AssignFlightsToOrders(IEnumerable<Flight> flights)
+    {
         // using mock data
         await this._ordersDataProvider.LoadOrders();
         var orders = (await this._orderRepository.GetAllOrdersAsync()).Select(x => new Order()
